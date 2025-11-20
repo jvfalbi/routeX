@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Destinatários</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 25px 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, white, #56a8ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+         .header-logo {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+     .header-logo img {
+    width: 600px;        /* LARGA */
+    height: 200px;        /* BAIXA */
+    object-fit: contain; /* evita distorcer a logo */
+    border-radius: 12px; 
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+        
+        /* Título superior */
+        .header-title {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+
+        /* CARD DA LISTA */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            background: white;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1a73e8;
+            text-align: center;
+        }
+
+        /* Mensagens */
+        .success, .error {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .success {
+            background: #e6ffed;
+            color: #0f6d2d;
+            border-left: 4px solid #0f6d2d;
+        }
+
+        .error {
+            background: #ffe6e6;
+            color: #a60000;
+            border-left: 4px solid #d30000;
+        }
+
+        /* BOTÃO NOVO DESTINATÁRIO */
+        .new-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #1a73e8, #005be0);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .new-btn:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* TABELA */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 15px;
+        }
+
+        th {
+            background: #1a73e8;
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f5f7ff;
+        }
+
+        tr:hover {
+            background: #e9f0ff;
+        }
+
+        /* LINKS */
+        a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #005be0;
+            margin: 0 4px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* BOTÃO LOGOUT */
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #b52a37;
+        }
+
+        /* NAVEGAÇÃO */
+        .nav {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .nav a {
+            color: #005be0;
+            margin: 0 10px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+       .route-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white; /* R O U T E */
+    text-align: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.x-blue {
+    color: black; /* Azul */
+}
+    </style>
+</head>
+<body>
+    
+    <div class="header-logo">
+       <h1 class="route-title">
+    ROUTE <span class="x-blue">X</span>
+</h1>
+
+    </div>
+
+    <div class="container">
+
+        <h1>📦 Cadastro de Destinatários</h1>
+
+        <!-- mensagens -->
+        <div th:if="${mensagemSucesso}" class="success" th:text="${mensagemSucesso}"></div>
+        <div th:if="${mensagemErro}" class="error" th:text="${mensagemErro}"></div>
+
+        <!-- botão novo -->
+        <a href="/destinatarios/novo" class="new-btn">+ Novo Destinatário</a>
+
+        <!-- tabela -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF/CNPJ</th>
+                    <th>Endereço Completo</th>
+                    <th>Responsável</th>
+                    <th>Veículo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="d : ${destinatarios}">
+                    <td th:text="${d.id}"></td>
+                    <td th:text="${d.nome}"></td>
+                    <td th:text="${d.cpfCnpj}"></td>
+                    <td th:text="${d.endereco} + ', ' + ${d.numero} + ' - ' + ${d.cidade} + '/' + ${d.estado}"></td>
+                    <td th:text="${d.responsavel != null ? d.responsavel.nome : '-'}"></td>
+                    <td th:text="${d.veiculo != null ? d.veiculo.modelo + ' (' + d.veiculo.placa + ')' : '-'}"></td>
+
+                    <td>
+                        <a th:href="@{/destinatarios/editar/{id}(id=${d.id})}">Editar</a>
+                        |
+                        <a th:href="@{/destinatarios/deletar/{id}(id=${d.id})}"
+                           onclick="return confirm('Excluir o destinatário: ' + [[${d.nome}]] + '?');">
+                           Excluir
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${destinatarios.empty}">
+            <p>Nenhum destinatário cadastrado.</p>
+        </div>
+
+        <!-- Navegação -->
+        <div class="nav">
+            <a href="/destinatarios">Destinatários</a> |
+            <a href="/funcionarios">Funcionários</a> |
+            <a href="/veiculos">Veículos</a>
+        </div>
+
+        <!-- Logout -->
+        <div style="text-align: right; margin-top: 15px;">
+            <form th:action="@{/logout}" method="post">
+                <button class="logout-btn">Sair</button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

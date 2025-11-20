@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Veículos</title>
+    <style>
+body {
+            margin: 0;
+            padding: 25px 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, white, #56a8ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.header-logo img {
+    width: 600px;        /* LARGA */
+    height: 200px;        /* BAIXA */
+    object-fit: contain; /* evita distorcer a logo */
+    border-radius: 12px; 
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+
+        /* Título superior */
+        .header-title {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: #ffffff;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .success, .error {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .success {
+            background: #e6ffed;
+            color: #0f6d2d;
+            border-left: 4px solid #0f6d2d;
+        }
+
+        .error {
+            background: #ffe6e6;
+            color: #a60000;
+            border-left: 4px solid #d30000;
+        }
+
+        .new-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #1a73e8, #005be0);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .new-btn:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transform: translateY(-2px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        th {
+            background: #1a73e8;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f5f7ff;
+        }
+
+        tr:hover {
+            background: #e9f0ff;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #005be0;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .nav {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .nav a {
+            color: #005be0;
+            margin: 0 10px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        .route-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white; /* R O U T E */
+    text-align: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.x-blue {
+    color: black; /* Azul */
+}
+    </style>
+</head>
+<body>
+    
+    <div class="header-logo">
+       <h1 class="route-title">
+    ROUTE <span class="x-blue">X</span>
+</h1>
+
+    </div>
+
+    <h1>🚚 Cadastro de Veículos</h1>
+
+    <div th:if="${mensagemSucesso}" class="success" th:text="${mensagemSucesso}"></div>
+    <div th:if="${mensagemErro}" class="error" th:text="${mensagemErro}"></div>
+
+    <p><a href="/veiculos/novo">[+] Novo Veículo</a></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Placa</th>
+                <th>Modelo</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="v : ${veiculos}">
+                <td th:text="${v.id}"></td>
+                <td th:text="${v.placa}"></td>
+                <td th:text="${v.modelo}"></td>
+                <td th:text="${v.tipo}"></td>
+                <td>
+                    <a th:href="@{/veiculos/editar/{id}(id=${v.id})}">Editar</a> 
+                    <a th:href="@{/veiculos/deletar/{id}(id=${v.id})}" 
+                       onclick="return confirm('Tem certeza que deseja excluir o veículo?');">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div th:if="${veiculos.empty}">
+        <p>Nenhum veículo cadastrado.</p>
+    </div>
+    
+    <hr>
+    <div>
+        <a href="/destinatarios">↩️ Voltar para Destinatários</a> |
+        <a href="/funcionarios">Funcionários</a>
+    </div>
+</body>
+</html>

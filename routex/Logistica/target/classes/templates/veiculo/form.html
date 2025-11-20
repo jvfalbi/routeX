@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${acao} + ' Veículo'"></title>
+    <style>
+        body {
+            margin: 0;
+            padding: 80px 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, white, #56a8ff);
+            font-family: "Segoe UI", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+ .header-logo {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.header-logo img {
+    width: 600px;        /* LARGA */
+    height: 200px;        /* BAIXA */
+    object-fit: contain; /* evita distorcer a logo */
+    border-radius: 12px; 
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+
+        /* Título fixo */
+        .header-title {
+            padding-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Card branco */
+        .container {
+            width: 480px;
+            max-height: 520px;
+            background: #ffffff;
+            padding: 25px 35px;
+            border-radius: 15px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+            overflow-y: auto;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 25px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #c9c9c9;
+            background: #fafafa;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        input:focus {
+            background: white;
+            border-color: #1a73e8;
+            box-shadow: 0 0 8px rgba(26, 115, 232, 0.25);
+        }
+
+        .error {
+            color: #c40000;
+            font-size: 13px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Botão azul */
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            background: linear-gradient(135deg, #1a73e8, #005be0);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        }
+
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            color: #555;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, white, #56a8ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.header-logo img {
+    width: 600px;        /* LARGA */
+    height: 200px;        /* BAIXA */
+    object-fit: contain; /* evita distorcer a logo */
+    border-radius: 12px; 
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+
+        /* Título superior */
+        .header-title {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: #ffffff;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .success, .error {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .success {
+            background: #e6ffed;
+            color: #0f6d2d;
+            border-left: 4px solid #0f6d2d;
+        }
+
+        .error {
+            background: #ffe6e6;
+            color: #a60000;
+            border-left: 4px solid #d30000;
+        }
+
+        .new-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #1a73e8, #005be0);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .new-btn:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transform: translateY(-2px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        th {
+            background: #1a73e8;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f5f7ff;
+        }
+
+        tr:hover {
+            background: #e9f0ff;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #005be0;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .nav {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .nav a {
+            color: #005be0;
+            margin: 0 10px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        .route-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white; /* R O U T E */
+    text-align: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.x-blue {
+    color: black; /* Azul */
+}
+    </style>
+</head>
+<body>
+    
+    <div class="header-logo">
+       <h1 class="route-title">
+    ROUTE <span class="x-blue">X</span>
+</h1>
+
+    </div>
+    <h1 th:text="${acao} + ' Veículo'"></h1>
+
+    <form th:action="@{/veiculos/salvar}" th:object="${veiculo}" method="post">
+        <input type="hidden" th:field="*{id}" /> 
+
+        <div>
+            <label for="placa">Placa:</label>
+            <input type="text" id="placa" th:field="*{placa}" required />
+            <span th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo" th:field="*{modelo}" required />
+            <span th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="tipo">Tipo (Van, Moto, etc.):</label>
+            <input type="text" id="tipo" th:field="*{tipo}" />
+        </div>
+
+        <hr>
+        <button type="submit" th:text="${acao}"></button>
+        <a href="/veiculos">Cancelar e Voltar</a>
+    </form>
+</body>
+</html>

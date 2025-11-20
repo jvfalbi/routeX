@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${acao} + ' Funcionário'"></title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 30px 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, white, #56a8ff);
+            font-family: "Segoe UI", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        
+         .header-logo {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.header-logo img {
+    width: 600px;        /* LARGA */
+    height: 200px;        /* BAIXA */
+    object-fit: contain; /* evita distorcer a logo */
+    border-radius: 12px; 
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+        /* CABEÇALHO "LOGÍSTICA" */
+        .header-title {
+            padding-top: 10px;
+            padding-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* CARD PRINCIPAL */
+        .container {
+            width: 480px;
+            max-height: 520px;
+            background: #ffffff;
+            padding: 25px 35px;
+            border-radius: 15px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+            overflow-y: auto;
+            margin-bottom: 25px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 25px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #c9c9c9;
+            background: #fafafa;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        input:focus {
+            background: white;
+            border-color: #1a73e8;
+            box-shadow: 0 0 8px rgba(26, 115, 232, 0.25);
+        }
+
+        .error {
+            color: #c40000;
+            font-size: 13px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            background: linear-gradient(135deg, #1a73e8, #005be0);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        }
+
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            color: #555;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+route-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white; /* R O U T E */
+    text-align: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.x-blue {
+    color: black; /* Azul */
+}
+    </style>
+</head>
+<body>
+    
+    <div class="header-logo">
+       <h1 class="route-title">
+    ROUTE <span class="x-blue">X</span>
+</h1>
+        </div>
+    <h1 th:text="${acao} + ' Funcionário'"></h1>
+
+    <form th:action="@{/funcionarios/salvar}" th:object="${funcionario}" method="post">
+        <input type="hidden" th:field="*{id}" /> 
+
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" required />
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="cargo">Cargo:</label>
+            <input type="text" id="cargo" th:field="*{cargo}" required />
+            <span th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" th:field="*{telefone}" />
+        </div>
+
+        <hr>
+        <button type="submit" th:text="${acao}"></button>
+        <a href="/funcionarios">Cancelar e Voltar</a>
+    </form>
+</body>
+</html>

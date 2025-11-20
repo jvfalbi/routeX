@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Logística</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(135deg, white, #56a8ff);
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+      .header-logo {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.header-logo img {
+    width: 600px;        /* LARGA */
+    height: 200px;        /* BAIXA */
+    object-fit: contain; /* evita distorcer a logo */
+    border-radius: 12px; 
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+
+
+
+        .company-name {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .company-name .route {
+            color: #ffffff;
+        }
+
+        .company-name .x {
+            color: #002fff;
+        }
+
+        /* FORMULÁRIO */
+        .login-container {
+            width: 380px;
+            background: #ffffff;
+            padding: 40px 35px;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #1d6fe0;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-message {
+            background-color: #ffe5e5;
+            color: #a90000;
+            border-left: 4px solid #d30000;
+        }
+
+        .success-message {
+            background-color: #e6ffed;
+            color: #0f6d2d;
+            border-left: 4px solid #0f6d2d;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #c9c9c9;
+            background: #fafafa;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        input:focus {
+            background: #fff;
+            border-color: #1a73e8;
+            box-shadow: 0 0 8px rgba(26, 115, 232, 0.25);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            background: linear-gradient(135deg, #1a73e8, #005be0);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+        .route-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white; /* R O U T E */
+    text-align: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.x-blue {
+    color: black; /* Azul */
+}
+    </style>
+</head>
+<body>
+    
+    <div class="header-logo">
+       <h1 class="route-title">
+    ROUTE <span class="x-blue">X</span>
+</h1>
+
+    </div>
+    <div class="login-container">
+        <h2>Entrar no Sistema de Logística</h2>
+        
+        <div th:if="${param.error}" class="error-message">
+            Usuário ou senha inválidos.
+        </div>
+        
+        <div th:if="${param.logout}" style="color: green; margin-bottom: 15px;">
+            Você foi desconectado.
+        </div>
+        
+        <form method="post" th:action="@{/login}">
+            <div class="form-group">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Acessar</button>
+        </form>
+    </div>
+</body>
+</html>

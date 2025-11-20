@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logística</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, white, #56a8ff);
+            font-family: "Segoe UI", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+       .header-logo {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+     .header-logo img {
+    width: 600px;        /* LARGA */
+    height: 200px;        /* BAIXA */
+    object-fit: contain; /* evita distorcer a logo */
+    border-radius: 12px; 
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+
+
+        /* Container do Form */
+        .container {
+            width: 480px;
+            max-height: 900px;
+            background: #ffffff;
+            padding: 25px 30px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            overflow-y: auto;
+            border-radius: 15px;
+            margin-bottom: 35px;
+        }
+
+        h3 {
+            margin-top: 22px;
+            margin-bottom: 12px;
+            color: #1a73e8;
+            font-size: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid #c9c9c9;
+            background: #fafafa;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        input:focus,
+        select:focus {
+            background: #ffffff;
+            border-color: #1a73e8;
+            box-shadow: 0 0 8px rgba(26, 115, 232, 0.25);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #1a73e8, #005be0);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
+
+        .cancel-link {
+            text-align: center;
+            display: block;
+            margin-top: 12px;
+            font-weight: 600;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            margin: 0 8px;
+            color: #005be0;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+       .route-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white; /* R O U T E */
+    text-align: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.x-blue {
+    color: black; /* Azul */
+}
+    </style>
+</head>
+<body>
+    
+    <div class="header-logo">
+       <h1 class="route-title">
+    ROUTE <span class="x-blue">X</span>
+</h1>
+
+    </div>
+
+
+
+    <!-- Card do formulário -->
+    <div class="container">
+
+        <h3 th:text="${acao} + ' Destinatário'"></h3>
+
+        <form th:action="@{/destinatarios/salvar}" th:object="${destinatario}" method="post">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <!-- Nome -->
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="*{nome}" required>
+            </div>
+
+            <!-- CPF/CNPJ -->
+            <div class="form-group">
+                <label for="cpfCnpj">CPF/CNPJ:</label>
+                <input type="text" id="cpfCnpj" th:field="*{cpfCnpj}" required>
+            </div>
+
+            <hr>
+
+            <h3>Endereço</h3>
+
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" th:field="*{cep}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="endereco">Logradouro:</label>
+                <input type="text" id="endereco" th:field="*{endereco}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" th:field="*{numero}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="complemento">Complemento:</label>
+                <input type="text" id="complemento" th:field="*{complemento}">
+            </div>
+
+            <div class="form-group">
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" th:field="*{cidade}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="estado">Estado (UF):</label>
+                <input type="text" id="estado" th:field="*{estado}" maxlength="2" required>
+            </div>
+
+            <hr>
+
+            <h3>Dados da Entrega</h3>
+
+            <div class="form-group">
+                <label for="responsavel">Responsável:</label>
+                <select id="responsavel" th:field="*{responsavel}">
+                    <option value="">-- Selecione o Motorista --</option>
+                    <option th:each="f : ${funcionarios}"
+                            th:value="${f.id}"
+                            th:text="${f.nome} + ' (' + ${f.cargo} + ')'"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="veiculo">Veículo:</label>
+                <select id="veiculo" th:field="*{veiculo}">
+                    <option value="">-- Selecione o Veículo --</option>
+                    <option th:each="v : ${veiculos}"
+                            th:value="${v.id}"
+                            th:text="${v.modelo} + ' - ' + ${v.placa}"></option>
+                </select>
+            </div>
+
+            <button type="submit">Enviar</button>
+
+            <a href="/destinatarios" class="cancel-link">Cancelar e Voltar</a>
+
+            <div class="nav-links">
+                <a href="/destinatarios">Destinatários</a> |
+                <a href="/funcionarios">Funcionários</a> |
+                <a href="/veiculos">Veículos</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
